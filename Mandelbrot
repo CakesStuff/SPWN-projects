@@ -1,9 +1,15 @@
 extract obj_props
 MAX_ITER=80
+times=(z,z1) {
+  let res=[0,0];
+  res[0]=z[0]*z1[0]-z[1]*z1[1]
+  res[1]=z[0]*z1[1]+z[1]*z1[0]
+  return res
+}
 mandelbrot=(c){
-  n=0
-  z=[0,0]
-  while cbrt(z[1]*z[1]+z[0]*z[0]<=2 && n<MAX_ITER) {
+  let n=0
+  let z=[0,0]
+  while $.cbrt(z[1]*z[1]+z[0]*z[0])<=2 && n<MAX_ITER {
     z=times(z,z)
     z[0]+=c[0]
     z[1]+=c[1]
@@ -11,15 +17,9 @@ mandelbrot=(c){
   }
   return n
 }
-times=(z,z1) {
-  res=[0,0];
-  res[0]=z[0]*z1[0]-z[1]*z1[1]
-  res[1]=z[0]*z1[1]+z[1]*z1[0]
-  return res
-}
-let width=9
-let height=12
-screen=[
+width=9
+height=12
+let screen=[
   [0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0],
@@ -35,12 +35,12 @@ screen=[
 ]
 for i in ..width{
   for n in ..height{
-    point[-2 + (i / width) * (1 - -2),-1 + (n / height) * (1 - -1)];
-    screen[point[1]][point[0]]=mandelbrot(point[0],point[1])
-    if !(screen[point[1]][point[0]]==80) {
+    point=[-2+i/width*3,-1 + (n / height) * (1 - -1)];
+    screen[n][i]=mandelbrot([point[0],point[1]])
+    if !(screen[n][i]==80) {
       $.add(obj {
         //Object adding by Spu7Nix
-        OBJ_ID=211,
+        OBJ_ID:211,
         X: 315+point[0]*30,
         Y: 315+point[1]*30
       })
