@@ -4,6 +4,7 @@ let turn_left = false
 let turn_right = false
 
 snake_head=1g
+apples=2g
 
 let temp_pos=[0,0]
 
