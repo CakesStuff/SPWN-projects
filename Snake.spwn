@@ -1,0 +1,34 @@
+//Make Snake Head Group 1
+//
+//
+
+gs = import gamescene
+
+let turn_left = false
+let turn_right = false
+
+snake_head=1g
+
+let temp_pos=[0,0]
+
+gs.button_a().on_triggered(!{
+  turn_left=true
+})
+
+gs.button_b().on_triggered(!{
+  turn_left=true
+})
+
+gs.button_a_end().on_triggered(!{
+  turn_left=false
+})
+
+gs.button_b_end().on_triggered(!{
+  turn_left=false
+})
+
+gs.button_a()
+
+update = !{
+  
+}
