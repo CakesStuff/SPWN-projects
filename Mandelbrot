@@ -3,7 +3,7 @@ MAX_ITER=80
 mandelbrot=(c){
   n=0
   z=[0,0]
-  while cbrt(z[1]*z[1]+z[0]*z[0]<=2 && n<MAX_ITER {
+  while (cbrt(z[1]*z[1]+z[0]*z[0]<=2 && n<MAX_ITER) {
     z=times(z,z)
     z[0]+=c[0]
     z[1]+=c[1]
@@ -33,8 +33,8 @@ screen=[
   [0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0]
 ]
-for i in ..width{
-  for n in ..height{
+for (i in ..width){
+  for (n in ..height){
     point[-2 + (i / width) * (1 - -2),-1 + (n / height) * (1 - -1)];
     screen[point[1]][point[0]]=mandelbrot(point[0],point[1])
     if !(screen[point[1]][point[0]]==80) {
