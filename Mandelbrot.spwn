@@ -18,14 +18,21 @@ mandelbrot=(c){
   }
   return n
 }
-width=9
-height=12
+width=12
+height=9
 scale=0.5
 RE_START = counter(-2)
 let RE_END = counter(1)
 IM_START = counter(-1)
 let IM_END = counter(1)
-let screen=[[counter(0) for i in ..(width/scale)] for n in ..(height/scale)]
+let screen=[]
+for i in ..width/scale{
+  let temp=[]
+  for i in ..height/scale{
+    temp.push(counter(0))
+  }
+  screen.push(temp)
+}
 for i in ..(width/scale){
   for n in ..(height/scale){
     $.add(obj {
