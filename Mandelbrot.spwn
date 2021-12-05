@@ -26,19 +26,27 @@ let RE_END = 1
 IM_START = -1
 let IM_END = 1
 let screen=[[0 for i in ..(width/scale)] for n in ..(height/scale)]
-while true{
+for i in ..(width/scale){
+  for n in ..(height/scale){
+    $.add(obj {
+          //Object adding by Spu7Nix
+          OBJ_ID:211,
+          X: 315+i*30,
+          Y: 315+n*30,
+          SCALING:scale,
+          GROUPS:(i*(height/scale)+n)
+    })
+  }
+}
+draw=!{
   for i in ..(width/scale){
     for n in ..(height/scale){
       point=[RE_START+i/width*(RE_END-RE_START),IM_START + (n / height) * (IM_END-IM_START)];
       screen[n][i]=mandelbrot([point[0],point[1]])
       if !(screen[n][i]==80) {
-        $.add(obj {
-          //Object adding by Spu7Nix
-          OBJ_ID:211,
-          X: 315+i*30,
-          Y: 315+n*30,
-          SCALING:scale
-        })
+        (i*(height/scale)+n)g.alpha(100)
+      } else {
+        (i*(height/scale)+n)g.alpha($.round(screen[n][i]/80))
       }
     }
   }
@@ -46,4 +54,5 @@ while true{
 gs.button_a().on_triggered(!{
   RE_END=RE_START+(RE_END-RE_START)/2
   IM_END=IM_START+(IM_END-IM_START)/2
+  draw()
 })
