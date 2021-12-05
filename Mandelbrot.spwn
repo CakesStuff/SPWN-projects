@@ -26,9 +26,9 @@ let RE_END = counter(1)
 IM_START = counter(-1)
 let IM_END = counter(1)
 let screen=[]
-for i in ..(width/scale){
+for i in ..(height/scale){
   let temp=[]
-  for i in ..(height/scale){
+  for i in ..(width/scale){
     temp.push(counter(0))
   }
   screen.push(temp)
