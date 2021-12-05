@@ -37,7 +37,7 @@ while true{
           OBJ_ID:211,
           X: 315+i*30,
           Y: 315+n*30,
-          SCALE:scale
+          SCALING:scale
         })
       }
     }
