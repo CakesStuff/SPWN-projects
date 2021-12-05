@@ -48,12 +48,12 @@ for i in ..(width/scale){
 draw=!{
   for i in ..(width/scale){
     for n in ..(height/scale){
-      point=[RE_START.to_const(-2..-2)+i/width*(RE_END.to_const(-2..1)-RE_START.to_const(-2..-2)),IM_START.to_const(-1..-1) + (n / height) * (IM_END.to_const(-1..1)-IM_START.to_const(-1..-1))];
+      point=[RE_START.to_const(-2..-1)+i/width*(RE_END.to_const(-2..1)-RE_START.to_const(-2..-1)),IM_START.to_const(-1..0) + (n / height) * (IM_END.to_const(-1..1)-IM_START.to_const(-1..0))];
       screen[n][i]=mandelbrot([point[0],point[1]])
       if !(screen[n][i]==80) {
         @group(i*(height/scale)+n).alpha(100)
       } else {
-        @group(i*(height/scale)+n).alpha($.round(screen[n][i]/0.8))
+        @group(i*(height/scale)+n).alpha($.round(screen[n][i].to_const(0..100)/0.8))
       }
     }
   }
