@@ -42,7 +42,6 @@ while true{
       }
     }
   }
-  wait(1)
 }
 gs.button_a().on_triggered(!{
   RE_END=RE_START+(RE_END-RE_START)/2
