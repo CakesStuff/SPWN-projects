@@ -53,7 +53,7 @@ draw=!{
       if !(screen[n][i]==80) {
         @group(i*(height/scale)+n).alpha(100)
       } else {
-        @group(i*(height/scale)+n).alpha($.round(screen[n][i].to_const(0..100)/0.8))
+        @group(i*(height/scale)+n).alpha(0)
       }
     }
   }
