@@ -19,30 +19,18 @@ mandelbrot=(c){
 }
 width=9
 height=12
-let screen=[
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0]
-]
-for i in ..width{
-  for n in ..height{
+scale=0.5
+let screen=[[0 for i in ..width/scale] for n in ..height/scale]
+for i in ..width/scale{
+  for n in ..height/scale{
     point=[-2+i/width*3,-1 + (n / height) * (1 - -1)];
     screen[n][i]=mandelbrot([point[0],point[1]])
     if !(screen[n][i]==80) {
       $.add(obj {
         //Object adding by Spu7Nix
         OBJ_ID:211,
-        X: 315+point[0]*30,
-        Y: 315+point[1]*30
+        X: 315+i*30,
+        Y: 315+n*30
       })
     }
   }
