@@ -31,8 +31,8 @@ for i in ..(width/scale){
     $.add(obj {
           //Object adding by Spu7Nix
           OBJ_ID:211,
-          X: 315+i*30,
-          Y: 315+n*30,
+          X: 315+i*30*scale,
+          Y: 315+n*30*scale,
           SCALING:scale,
           GROUPS:(i*(height/scale)+n)
     })
