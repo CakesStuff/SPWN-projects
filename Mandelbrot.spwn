@@ -21,32 +21,32 @@ mandelbrot=(c){
 width=9
 height=12
 scale=0.5
-RE_START = -2
-let RE_END = 1
-IM_START = -1
-let IM_END = 1
-let screen=[[0 for i in ..(width/scale)] for n in ..(height/scale)]
-for i in ..(width/scale){
-  for n in ..(height/scale){
+RE_START = counter(-2)
+let RE_END = counter(1)
+IM_START = counter(-1)
+let IM_END = counter(1)
+let screen=[[counter(0) for i in ..(width/scale)] for n in ..(height/scale)]
+for i in ..(width*scale){
+  for n in ..(height*scale){
     $.add(obj {
           //Object adding by Spu7Nix
           OBJ_ID:211,
           X: 315+i*30*scale,
           Y: 315+n*30*scale,
           SCALING:scale,
-          GROUPS:(i*(height/scale)+n)
+          GROUPS:@group(i*(height/scale)+n)
     })
   }
 }
 draw=!{
-  for i in ..(width/scale){
-    for n in ..(height/scale){
-      point=[RE_START+i/width*(RE_END-RE_START),IM_START + (n / height) * (IM_END-IM_START)];
+  for i in ..(width*scale){
+    for n in ..(height*scale){
+      point=[RE_START.to_const(-2..-2)+i/width*(RE_END.to_const(-2..1)-RE_START.to_const(-2..-2)),IM_START.to_const(-1..-1) + (n / height) * (IM_END.to_const(-1..1)-IM_START.to_const(-1..-1))];
       screen[n][i]=mandelbrot([point[0],point[1]])
       if !(screen[n][i]==80) {
-        (i*(height/scale)+n)g.alpha(100)
+        @group(i*(height*scale)+n).alpha(100)
       } else {
-        (i*(height/scale)+n)g.alpha($.round(screen[n][i]/80))
+        @group(i*(height*scale)+n).alpha($.round(screen[n][i]/0.8))
       }
     }
   }
