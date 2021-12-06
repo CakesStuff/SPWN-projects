@@ -1,0 +1,60 @@
+extract obj_props
+MAX_ITER=80
+times=(z,z1) {
+  let res=[0,0];
+  res[0]=z[0]*z1[0]-z[1]*z1[1]
+  res[1]=z[0]*z1[1]+z[1]*z1[0]
+  return res
+}
+julia=(c,z0){
+  let n=0
+  let z=z0
+  while $.cbrt(z[1]*z[1]+z[0]*z[0])<=2 && n<MAX_ITER {
+    z=times(z,z)
+    z[0]+=c[0]
+    z[1]+=c[1]
+    n+=1
+  }
+  return n
+}
+width=12
+height=9
+scale=0.125
+c1=[0.285, 0.01]
+RE_START = -1
+let RE_END = -0.75
+IM_START = -1.2
+let IM_END = -0.825
+for i in 1..81{
+	temp=i*4.5
+	v= 1 if (i < MAX_ITER) else 0
+	col=@color(i)
+	c=v*255
+	x=c*(1-$.abs((temp/60)% 2 - 1))
+	m=v-c
+	look=[
+		[c,x,0,0,x,c,c],
+		[x,c,c,x,0,0,0],
+		[0,0,x,c,c,x,x]
+	]
+	rs=look[0][$.round(temp/60)]
+	gs=look[1][$.round(temp/60)]
+	bs=look[2][$.round(temp/60)]
+	r=(rs+m)*255
+	g=(gs+m)*255
+	b=(bs+m)*255
+	col.set(r,g,b)
+}
+for i in ..(height/scale){
+  for n in ..(width/scale){
+    m=julia(c1,[RE_START+i/width*(RE_END-RE_START),IM_START + (n / height) * (IM_END-IM_START)])
+    $.add(obj {
+          //Object adding by Spu7Nix
+          OBJ_ID:211,
+          X: 315+n*30*scale+100*30,
+          Y: i*30*scale,
+          SCALING:scale,
+		  COLOR:@color(m)
+    })
+  }
+}
