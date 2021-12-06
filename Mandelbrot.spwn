@@ -24,7 +24,7 @@ RE_START = -2
 let RE_END = -1.625
 IM_START = -1
 let IM_END = -0.75
-for i in ..80{
+for i in 1..81{
 	temp=i*4.5
 	v= 1 if (i < MAX_ITER) else 0
 	col=@color(i)
