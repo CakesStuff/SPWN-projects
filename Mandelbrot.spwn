@@ -19,11 +19,11 @@ mandelbrot=(c){
 }
 width=12
 height=9
-scale=0.125
+scale=0.0625
 RE_START = -2
-let RE_END = -1.625
+let RE_END = -1.8125
 IM_START = -1
-let IM_END = -0.75
+let IM_END = -0.875
 for i in 1..81{
 	temp=i*4.5
 	v= 1 if (i < MAX_ITER) else 0
@@ -50,7 +50,7 @@ for i in ..(height/scale){
     $.add(obj {
           //Object adding by Spu7Nix
           OBJ_ID:211,
-          X: 315+n*30*scale,
+          X: 315+n*30*scale+100*30,
           Y: 315+i*30*scale,
           SCALING:scale,
 		  COLOR:@color(m)
