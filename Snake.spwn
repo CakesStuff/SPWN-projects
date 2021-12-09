@@ -4,7 +4,7 @@ width=9
 height=9
 change=[-1,-width,1,width]
 sel=counter(0)
-screen=[]
+let screen=[]
 for i in ..(width*height){
   screen.push(counter(0))
 }
@@ -29,7 +29,7 @@ kill=!{}
 update=!{
   for i in ..(width*height){
     if screen[i].to_const(..81)==max.to_const(..81){
-      n=change[sel.to_const(..3)]]
+      n=change[sel.to_const(..3)]
       if screen[n].to_const(..81)==0{
         screen[n]+=max.to_const(..81)+1
       } else {
