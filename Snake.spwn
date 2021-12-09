@@ -36,5 +36,8 @@ impl @counter {
       self.down-=(width*height)
     }
     self.down=@item(self.down)
+    self.loop=!{
+
+    }
   }
 }
