@@ -21,20 +21,20 @@ impl @counter {
       self.left+=(width*height)
     }
     self.left=@item(self.left)
-    self.left=id-1
-    if self.left<0{
-      self.left+=(width*height)
+    self.up=id-width
+    if self.up<0{
+      self.up+=(width*height)
     }
-    self.left=@item(self.left)
+    self.up=@item(self.up)
     self.right=id+1
     if self.right>(width*height){
       self.right-=(width*height)
     }
     self.right=@item(self.right)
-    self.down=id
-    if self.left<0{
-      self.left+=(width*height)
+    self.down=id+width
+    if self.down>(width*height){
+      self.down-=(width*height)
     }
-    self.left=@item(self.left)
+    self.down=@item(self.down)
   }
 }
