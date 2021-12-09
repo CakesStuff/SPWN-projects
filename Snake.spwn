@@ -18,7 +18,23 @@ impl @counter {
     self.myid=id
     self.left=id-1
     if self.left<0{
-      
+      self.left+=(width*height)
     }
+    self.left=@item(self.left)
+    self.left=id-1
+    if self.left<0{
+      self.left+=(width*height)
+    }
+    self.left=@item(self.left)
+    self.left=id-1
+    if self.left<0{
+      self.left+=(width*height)
+    }
+    self.left=@item(self.left)
+    self.left=id-1
+    if self.left<0{
+      self.left+=(width*height)
+    }
+    self.left=@item(self.left)
   }
 }
