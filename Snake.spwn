@@ -15,6 +15,10 @@ for i in ..height{
 }
 impl @counter {
   my_func: (self,id){
-    
+    self.myid=id
+    self.left=id-1
+    if self.left<0{
+      
+    }
   }
 }
