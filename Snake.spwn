@@ -13,8 +13,8 @@ screen[40]+=1
 for i in ..height {
   for n in ..width {
     $.add(obj{
-      X:15+width*30
-      Y:15+height*30
+      X:15+width*30,
+      Y:15+height*30,
       COLOR:@color(height*9+width)
     })
   }
