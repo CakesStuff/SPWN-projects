@@ -1,0 +1,5 @@
+Extract obj_props
+gs=import gamescene
+counters=[]
+width=9
+height=9
