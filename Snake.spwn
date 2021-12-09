@@ -3,6 +3,7 @@ gs=import gamescene
 counters=[]
 width=9
 height=9
+max=counter(90i)
 for i in ..height{
   for n in ..width{
     $.add(obj{
@@ -12,4 +13,8 @@ for i in ..height{
     })
   }
 }
-impl @counter::func
+impl @counter {
+  my_func: (self,id){
+    
+  }
+}
