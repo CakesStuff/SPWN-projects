@@ -3,3 +3,13 @@ gs=import gamescene
 counters=[]
 width=9
 height=9
+for i in ..height{
+  for n in ..width{
+    $.add(obj{
+      X:15+n*30
+      Y:15+i*30
+      COLOR:@color(i*width+n)
+    })
+  }
+}
+impl @counter::func
