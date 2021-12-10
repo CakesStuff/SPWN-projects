@@ -53,4 +53,20 @@ impl @counter {
         updateb(self.down)
     }
   }
+  updateb:(self,dire){
+    if counter(dire)==0{
+      counter(dire)+=max+1
+      return false
+    } else
+    if counter(dire)==82{
+      counter(dire)+=max+1
+      return true
+    }
+    kill!
+  }
+}
+for i in ..(width*height){
+  c = counter(@item(i))
+  c.my_func(i)
+  
 }
