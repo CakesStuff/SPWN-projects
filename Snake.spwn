@@ -80,4 +80,6 @@ for i in ..(width*height){
   on(c.reaches(-1),!{c+=1})
   on(c.reaches(81),!{c+=1})
 }
-
+gs.button_a.on_triggered(!{sel-=1})
+gs.button_b.on_triggered(!{sel+=1})
+while_loop()
