@@ -3,6 +3,15 @@ gs=import gamescene
 counters=[]
 width=9
 height=9
+$.add(obj{
+  ITEM_ID:8
+  X:15+30*100
+  Y:15+30*4
+  GROUPS:42g
+})
+kill=!{
+  42g.move(0,-4)
+}
 max=counter(90i)
 sel=counter(91i)
 for i in ..height{
