@@ -44,6 +44,13 @@ impl @counter {
   updatem: (self){
     switch sel {
       case 0:
+        updateb(self.left)
+      case 1:
+        updateb(self.up)
+      case 2:
+        updateb(self.right)
+      case 3:
+        updateb(self.down)
     }
   }
 }
