@@ -38,9 +38,6 @@ impl @counter {
     }
     self.down=@item(self.down)
   }
-  decm: (self){
-    self-=1
-  }
   updatem: (self){
     switch sel {
       case 0:
@@ -59,7 +56,7 @@ impl @counter {
       return false
     } else
     if counter(dire)==82{
-      counter(dire)+=max+1
+      counter(dire)+=max-81
       return true
     }
     kill!
@@ -82,4 +79,19 @@ for i in ..(width*height){
 }
 gs.button_a.on_triggered(!{sel-=1})
 gs.button_b.on_triggered(!{sel+=1})
-while_loop()
+while_loop(() => true,(){
+  dec=false
+  for i in ..(width*height){
+    if counter(@item(i))==max{
+      dec=counter(@item(i)).updatem()
+    }
+  }
+  if dec{max+=1} else {
+    for i in ..(width*height){
+      counter(@item(i))-=1
+    }
+  }
+  for i in ..(width*height){
+    counter(@item(i)).draw()
+  }
+})
