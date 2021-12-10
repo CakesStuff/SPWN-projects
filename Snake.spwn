@@ -64,9 +64,20 @@ impl @counter {
     }
     kill!
   }
+  draw: (self){
+    if self==0{
+      @color(myid).set(0,0,0)
+    }else if self==82{
+      @color(myid).set(255,0,0)
+    } else {
+      @color(myid).set(0,255,255)
+    }
+  }
 }
 for i in ..(width*height){
   c = counter(@item(i))
   c.my_func(i)
-  
+  on(c.reaches(-1),!{c+=1})
+  on(c.reaches(81),!{c+=1})
 }
+
