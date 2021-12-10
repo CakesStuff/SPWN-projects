@@ -42,6 +42,8 @@ impl @counter {
     self-=1
   }
   updatem: (self){
-    switch sel
+    switch sel {
+      case 0:
+    }
   }
 }
