@@ -4,6 +4,7 @@ counters=[]
 width=9
 height=9
 max=counter(90i)
+sel=counter(91i)
 for i in ..height{
   for n in ..width{
     $.add(obj{
@@ -36,8 +37,11 @@ impl @counter {
       self.down-=(width*height)
     }
     self.down=@item(self.down)
-    self.loop=!{
-
-    }
+  }
+  decm: (self){
+    self-=1
+  }
+  updatem: (self){
+    switch sel
   }
 }
