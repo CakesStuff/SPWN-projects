@@ -1,12 +1,11 @@
-Extract obj_props
+extract obj_props
 gs=import gamescene
-counters=[]
-width=9
-height=9
+width=4
+height=3
 $.add(obj{
-  ITEM_ID:8
-  X:15+30*100
-  Y:15+30*4
+  OBJ_ID:8,
+  X:15+30*100,
+  Y:15+30*4,
   GROUPS:42g
 })
 kill=!{
@@ -14,93 +13,98 @@ kill=!{
 }
 max=counter(90i)
 sel=counter(91i)
+sel=0
 for i in ..height{
   for n in ..width{
     $.add(obj{
-      X:15+n*30
-      Y:15+i*30
-      COLOR:@color(i*width+n)
+	  OBJ_ID:211,
+      X:15+n*30,
+      Y:15+i*30,
+      COLOR:@color(i*width+n+1),
+	  GROUPS:420g
     })
   }
 }
+->420g.lock_to_player(lock_x = true, lock_y = false)
 impl @counter {
   my_func: (self,id){
     self.myid=id
-    self.left=id-1
+    let self.left=id-1
     if self.left<0{
       self.left+=(width*height)
     }
     self.left=@item(self.left)
-    self.up=id-width
+    let self.up=id-width
     if self.up<0{
       self.up+=(width*height)
     }
     self.up=@item(self.up)
-    self.right=id+1
+    let self.right=id+1
     if self.right>(width*height){
       self.right-=(width*height)
     }
     self.right=@item(self.right)
-    self.down=id+width
+    let self.down=id+width
     if self.down>(width*height){
       self.down-=(width*height)
     }
     self.down=@item(self.down)
-  }
+  },
+  updateb: (self,dire){
+    if dire==0{
+      dire+=max+1
+      return 0
+    } else if dire==(width*height+1){
+      dire+=max-(width*height)
+      return 1
+    } else {
+      ->kill!
+      return 0
+    }
+  },
   updatem: (self){
-    switch sel {
-      case 0:
-        updateb(self.left)
-      case 1:
-        updateb(self.up)
-      case 2:
-        updateb(self.right)
-      case 3:
-        updateb(self.down)
-    }
-  }
-  updateb:(self,dire){
-    if counter(dire)==0{
-      counter(dire)+=max+1
-      return false
-    } else
-    if counter(dire)==82{
-      counter(dire)+=max-81
-      return true
-    }
-    kill!
-  }
+    temp=counter(switch sel {
+        case 1: self.up,
+        case 2: self.right,
+        case 3: self.down,
+        else: self.left,
+      })
+    return self.updateb(temp)
+  },
   draw: (self){
     if self==0{
-      @color(myid).set(0,0,0)
+      @color(self.myid+1).set(0,0,0)
     }else if self==82{
-      @color(myid).set(255,0,0)
+      @color(self.myid+1).set(255,0,0)
     } else {
-      @color(myid).set(0,255,255)
+      @color(self.myid+1).set(0,255,255)
     }
   }
 }
+let counters=[]
 for i in ..(width*height){
-  c = counter(@item(i))
+  let c = counter(@item(i))
   c.my_func(i)
   on(c.reaches(-1),!{c+=1})
-  on(c.reaches(81),!{c+=1})
+  on(c.reaches(width*height),!{c+=1})
+  counters.push(c)
 }
-gs.button_a.on_triggered(!{sel-=1})
-gs.button_b.on_triggered(!{sel+=1})
+counters[7]+=1
+gs.button_a().on_triggered(!{sel-=1})
+gs.button_b().on_triggered(!{sel+=1})
+let dec=counter(0)
 while_loop(() => true,(){
-  dec=false
   for i in ..(width*height){
-    ->if counter(@item(i))==max{
-      dec=counter(@item(i)).updatem()
+    ->if counters[i]==max{
+      dec+=counters[i].updatem()
     }
   }
-  if dec{max+=1} else {
+  if dec==1{max+=1} else {
     for i in ..(width*height){
-      ->counter(@item(i))-=1
+      ->counters[i]-=1
     }
   }
   for i in ..(width*height){
-    ->counter(@item(i)).draw()
+    ->counters[i].draw()
   }
 })
