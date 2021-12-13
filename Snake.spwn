@@ -31,7 +31,7 @@ impl @counter {
     self.myid=id
     let self.left=id-1
     if self.left<0{
-      self.left+=(width*height)
+      self.left+=width
     }
     self.left=@item(self.left)
     let self.up=id-width
@@ -41,7 +41,7 @@ impl @counter {
     self.up=@item(self.up)
     let self.right=id+1
     if self.right>(width*height){
-      self.right-=(width*height)
+      self.right-=width
     }
     self.right=@item(self.right)
     let self.down=id+width
@@ -90,12 +90,15 @@ for i in ..(width*height){
   counters.push(c)
 }
 counters[7]+=1
+counters[11]+=82
 gs.button_a().on_triggered(!{sel-=1})
 gs.button_b().on_triggered(!{sel+=1})
 let dec=counter(0)
+max+=1
+wait(1)
 while_loop(() => true,(){
   for i in ..(width*height){
-    ->if counters[i]==max{
+    if counters[i]==max{
       dec+=counters[i].updatem()
     }
   }
@@ -107,4 +110,5 @@ while_loop(() => true,(){
   for i in ..(width*height){
     ->counters[i].draw()
   }
+  wait(0.5)
 })
