@@ -33,6 +33,9 @@ impl @counter {
     if self.left<0{
       self.left+=width
     }
+	if self.left%width==width-1 {
+	  self.left+=width
+	}
     self.left=@item(self.left)
     let self.up=id-width
     if self.up<0{
@@ -43,6 +46,9 @@ impl @counter {
     if self.right>(width*height){
       self.right-=width
     }
+	if self.right%width==0 {
+	  self.right-=width
+	}
     self.right=@item(self.right)
     let self.down=id+width
     if self.down>(width*height){
@@ -74,7 +80,7 @@ impl @counter {
   draw: (self){
     if self==0{
       @color(self.myid+1).set(0,0,0)
-    }else if self==82{
+    }else if self==(width*height+1){
       @color(self.myid+1).set(255,0,0)
     } else {
       @color(self.myid+1).set(0,255,255)
@@ -90,7 +96,7 @@ for i in ..(width*height){
   counters.push(c)
 }
 counters[7]+=1
-counters[11]+=82
+counters[11]+=(width*height+1)
 gs.button_a().on_triggered(!{sel-=1})
 gs.button_b().on_triggered(!{sel+=1})
 let dec=counter(0)
