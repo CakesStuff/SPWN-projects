@@ -1,0 +1,75 @@
+extract obj_props
+gs=import gamescene
+player=1g
+bullet=[2g,3g,4g,5g,6g]
+level=7g
+wall=1b
+bulletH=[2b,3b,4b,5b,6b]
+playerH=7b
+target=8b
+rightH=9b
+collision_side=counter(0)
+collision_down=counter(0)
+collision_down.display(150, -15)
+vel=counter(0)
+vel_t=counter(0)
+shoot=counter(0)
+follow=69g
+follow.lock_to_player(lock_y=false)
+on(vel.reaches(6),!{vel-=1})
+gravity=!{
+	if collision_down==0{
+		vel+=1
+	}
+	if vel>0 {
+		player.move(0,-1)
+	}
+}
+move=!{
+	if collision_side==0{
+		player.move(5,0)
+	}
+}
+jump=!{
+	if collision_down==1 {
+		player.move(0,15)
+	} else {
+		shoot+=1
+	}
+}
+for i in ..5 {
+	on(shoot.reaches(i+1),!{
+		bullet[i].move(200,0,10)
+	})
+}
+for i in ..5 {
+	on(collision(wall, bulletH[i]),!{
+		@group(i+2).move(0,200)
+	})
+}
+on(collision(rightH, playerH),!{
+   collision_side+=1
+})
+on(collision_exit(rightH, playerH),!{
+   collision_side-=1
+})
+on(collision(wall, playerH),!{
+   collision_down+=1
+   vel=0
+})
+on(collision_exit(wall, playerH),!{
+   collision_down-=1
+})
+gs.button_a().on_triggered(!{
+	jump!
+})
+gs.button_b().on_triggered(!{
+	if collision_side==0{
+		move!
+	}
+})
+//TODO : COLLISION BULLET TARGET!!!
+while_loop(() => true,(){
+	gravity!
+	wait(0.05)
+})
