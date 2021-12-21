@@ -1,0 +1,99 @@
+extract obj_props
+gs=import gamescene
+level=3g
+cars=1g
+carsH=1b
+player=2g
+playerH=2b
+borderH=3b
+border=counter(0)
+down=counter(0)
+up=counter(0)
+downH=4b
+upH=5b
+spike=10g
+on(gs.button_a(),!{
+    if down==0 {
+        player.move(0,-10)
+    }
+})
+on(gs.button_b(),!{
+    if up==0 {
+        player.move(0,10)
+    }
+})
+kill=!{
+    spike.move(0,-100,2)
+}
+on(collision(playerH,downH),!{down+=1})
+on(collision(playerH,upH),!{up+=1})
+on(collision_exit(playerH,downH),!{down-=1})
+on(collision_exit(playerH,upH),!{up-=1})
+on(collision(playerH,carsH),kill)
+level.lock_to_player(lock_y=false)
+color=55c
+create=(){
+    $.add(obj{
+        OBJ_ID:8,
+        X:7,
+        Y:15+30*10,
+        GROUPS:[spike,level]
+    })
+    $.add(obj{
+        OBJ_ID:211,
+        X:15,
+        Y:15+30*5,
+        GROUPS:[player,level]
+    })
+    $.add(obj{
+        OBJ_ID:1816,
+        X:15,
+        Y:15+5*30,
+        GROUPS:[player,level],
+        BLOCK_A:playerH,
+        DYNAMIC_BLOCK:true
+    })
+    off=[30,240,120,180]
+    for i in ..10{
+        for n in ..4{
+            $.add(obj{
+                OBJ_ID:1816,
+                X:15+i*30*10+off[n]+300,
+                Y:15+n*30*2,
+                GROUPS:cars,
+                BLOCK_A:carsH,
+                SCALING:0.8
+            })
+            $.add(obj{
+                OBJ_ID:211,
+                X:15+i*30*10+off[n]+300,
+                Y:15+30*n*2,
+                GROUPS:cars
+            })
+            $.add(obj{
+                OBJ_ID:211,
+                X:15+i*30*10+off[n]+300,
+                Y:15+30*n*2,
+                GROUPS:cars,
+                SCALING:0.8,
+                COLOR:color
+            })
+        }
+    }
+    $.add(obj{
+        OBJ_ID:1816,
+        X:15,
+        Y:15+8*30+1,
+        GROUPS:[level],
+        BLOCK_A:upH
+    })
+    $.add(obj{
+        OBJ_ID:1816,
+        X:15,
+        Y:15-1,
+        GROUPS:[level],
+        BLOCK_A:downH
+    })
+}
+create()
+color.set(255,0,0)
