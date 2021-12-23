@@ -1,1 +1,20 @@
-
+extract obj_props
+gs=import gamescene
+level=1g
+level.lock_to_player(lock_y=false)
+black=?c
+black.set(0,0,0)
+white=?c
+white.set(255,255,255)
+for i in ..8*8 {
+	$.add(obj{
+		OBJ_ID:211,
+		X:(i%8)*30+15,
+		Y:$.floor(i/8)*30+15,
+		GROUPS:level,
+		COLOR:black if i%2==0 else white
+	})
+	$.add(obj{
+		//Hitbox starting at 1 with 0.9 scale
+	})
+}
